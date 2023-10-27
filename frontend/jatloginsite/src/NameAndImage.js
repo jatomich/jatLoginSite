@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ProgrammingImage from './ProgrammingImage';
+import './NameAndImage.css';
 
 // A custom component that renders a name and an image related to programming
 function NameAndImage(props) {

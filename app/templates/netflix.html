@@ -1,0 +1,29 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <h1 id="netflix-title">NETFLIX MOVIES</h1>
+        </div>
+        <table>
+            <tr>
+                {% for col in columns %}
+                    <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+            {% for movie in movies %}
+                    <tr>
+                        {% for dim in movie %}
+                            <td>{{ dim }}</td>
+                        {% endfor %}
+                    </tr>
+                </div>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+/* NameAndImage.css */
+
+.name-and-image {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .name-and-image .name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .programming-image {
+    width: 100%;
+    height: auto;
+  }
+  
