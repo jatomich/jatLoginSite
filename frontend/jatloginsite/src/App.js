@@ -2,7 +2,6 @@ import React from 'react';
 import Section from './Section';
 import NameForm from './NameForm';
 import NameAndImage from './NameAndImage';
-import logo from './logo.svg';
 import './App.css';
 
 
@@ -47,7 +46,9 @@ function App() {
   return (
     <div className="App">
       <NameAndImage
-        name='Andrew Tomich'
+        name="Andrew Tomich"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/240px-JavaScript-logo.png"
+        alt="JavaScript logo"
       />
       {sections.map((section, index) => (
         // This renders a Section component for each element in the sections array
