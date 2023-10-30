@@ -3,8 +3,10 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
+from flask_restful import Api
 
 db = SQLAlchemy()
+api = Api()
 bootstrap = Bootstrap()
 cors = CORS()
 
@@ -19,6 +21,7 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     app.config.from_envvar('CUSTOM_CONFIG')
 
+    api.init_app(app)
     db.init_app(app)
     bootstrap.init_app(app)
     cors.init_app(app)
@@ -26,5 +29,8 @@ def create_app(config_class=Config):
     with app.app_context():
         from . import routes, models
         db.create_all()
+
+    api.add_resource(routes.NetflixMovies, '/netflix_movies')
+    api.add_resource(routes.NetflixShows, '/netflix_shows')
 
     return app

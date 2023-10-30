@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import NetflixData from './DataComponent';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           Learn React
         </a>
       </header>
+      <div className={ `container-fluid` }>
+        <NetflixData />
+      </div>
     </div>
   );
 }

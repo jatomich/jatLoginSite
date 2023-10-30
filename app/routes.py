@@ -8,6 +8,7 @@ from app import db
 from .models import User, Movie, TVShow
 import pandas as pd
 import json
+from flask_restful import Resource
 
 
 @app.route('/')
@@ -35,17 +36,33 @@ def netflixdf():
     return redirect("index")
 
 
-@app.route("/netflix_movies")
-def netflix_movies():
-    columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
-    movies = [[m.title, m.director, m.cast, m.description] for m in Movie.query]
+# @app.route("/netflix_movies")
+# def netflix_movies():
+#     columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
+#     movies = [[m.title, m.director, m.cast, m.description] for m in Movie.query]
 
-    return render_template("netflix_movies.html", columns=columns, movies=movies)
+#     return render_template("netflix_movies.html", columns=columns, movies=movies)
 
 
-@app.route("/netflix_shows")
-def netflix_shows():
-    columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
-    shows = [[s.title, s.director, s.cast, s.description] for s in TVShow.query]
+# @app.route("/netflix_shows")
+# def netflix_shows():
+#     columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
+#     shows = [[s.title, s.director, s.cast, s.description] for s in TVShow.query]
 
-    return render_template("netflix_shows.html", columns=columns, shows=shows)
+#     return render_template("netflix_shows.html", columns=columns, shows=shows)
+
+
+
+class NetflixMovies(Resource):
+    def get(self):
+        columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
+        movies = {c: m.c for c in columns for m in Movie.query}
+        return {'movies': movies}
+    
+
+
+class NetflixShows(Resource):
+    def get(self):
+        columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
+        shows = {c: s.c for c in columns for s in TVShow.query}
+        return {'shows': shows}
