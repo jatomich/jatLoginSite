@@ -5,4 +5,4 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config():
     SECRET_KEY = '123abc'
-    SQLALCHEMY_DATABASE_URI = ""
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{basedir}/" + "app.db"

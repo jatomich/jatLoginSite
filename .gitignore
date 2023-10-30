@@ -161,5 +161,6 @@ cython_debug/
 
 
 # CUSTOM
+input/
 output/
 csv/
