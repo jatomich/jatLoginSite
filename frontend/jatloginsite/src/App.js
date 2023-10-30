@@ -1,10 +1,7 @@
 import React from 'react';
 import Section from './Section';
-import NameForm from './NameForm';
-import NameAndImage from './NameAndImage';
 import logo from './logo.svg';
 import './App.css';
-
 
 function App() {
   // These are some sample data for the sections
@@ -46,9 +43,6 @@ function App() {
 
   return (
     <div className="App">
-      <NameAndImage
-        name='Andrew Tomich'
-      />
       {sections.map((section, index) => (
         // This renders a Section component for each element in the sections array
         // The key prop is required by React to identify each element in a list
@@ -61,9 +55,7 @@ function App() {
           text2={section.text2}
           links={section.links}
         />
-      ))
-      }
-      <NameForm />
+      ))}
     </div>
   );
 }
