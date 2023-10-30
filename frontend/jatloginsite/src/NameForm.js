@@ -6,18 +6,13 @@ class NameForm extends Component {
     super(props);
     this.state = {
       name: '',
-      email: '',
       message: ''
     };
   }
 
-  handleNameChange = (event) => {
+  handleChange = (event) => {
     // This updates the state with the input value
     this.setState({ name: event.target.value });
-  };
-  handleEmailChange = (event) => {
-    // This updates the state with the input value
-    this.setState({ email: event.target.value });
   };
 
   handleSubmit = (event) => {
@@ -29,8 +24,7 @@ class NameForm extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name: this.state.name,
-        email: this.state.email })
+      body: JSON.stringify({ name: this.state.name })
     })
       .then((response) => response.json()) // This parses the JSON response
       .then((data) => {
@@ -52,15 +46,7 @@ class NameForm extends Component {
             <input
               type="text"
               value={this.state.name}
-              onChange={this.handleNameChange}
-            />
-          </label>
-          <label>
-            Email:
-            <input
-              type="text"
-              value={this.state.email}
-              onChange={this.handleEmailChange}
+              onChange={this.handleChange}
             />
           </label>
           <input type="submit" value="Submit" />
