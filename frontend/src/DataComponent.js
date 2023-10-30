@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+axios.defaults.baseURL = 'http://localhost:5000'
+
 function NetflixData() {
   const [movies, setMovies] = useState([]);
   const [shows, setShows] = useState([]);
