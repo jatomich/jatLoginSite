@@ -10,7 +10,12 @@ cors = CORS()
 
 
 def create_app(config_class=Config):
-    app = Flask(__name__)
+    app = Flask(__name__,
+                instance_path='/jatLoginSite/app',
+                instance_relative_config=True,
+                static_url_path='/jatLoginSite/app/static',
+                static_folder='static',
+                template_folder='templates')
     app.config.from_object(config_class)
     app.config.from_envvar('CUSTOM_CONFIG')
 
