@@ -1,28 +1,28 @@
 import logo from './logo.svg';
-import './App.css';
-import NetflixData from './DataComponent';
+import './styles/App.css';
+import NetflixData from './components/DataComponent';
+
+import Container from 'react-bootstrap/Container';
+import MyNav from './components/MyNav';
+// import Nav from 'react-bootstrap/Nav';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <Container>
+        <MyNav />
+      </Container>
+      <header id="top-latch" className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Netflix Movies and TV Shows.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
-      <div className={ `container-fluid` }>
+      <Container>
         <NetflixData />
-      </div>
-      <div className={`container-fluid`}>
+      </Container>
+      {/* <div className={`container-fluid`}>
         <select onChange={(e) => setSelectedDataset(e.target.value)}>
           <option value="Netflix Movies">Netflix</option>
           <option value="Netflix Shows">Jobs</option>
@@ -30,7 +30,18 @@ function App() {
         </select>
         <button onClick={fetchData}>Fetch Data</button>
         {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
-      </div>
+      </div> */}
+      <script src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js" crossorigin></script>
+
+      <script
+        src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js"
+        crossorigin></script>
+
+      <script
+        src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js"
+        crossorigin></script>
+
+      <script>var Alert = ReactBootstrap.Alert;</script>
     </div>
   );
 }

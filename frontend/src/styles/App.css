@@ -1,10 +1,6 @@
+/* Classes */
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  text-align: left;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -35,4 +31,37 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.netflix-type {
+  text-align: center;
+  font-size: 3em;
+}
+
+.netflix-div {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px #ccc;
+}
+
+.netflix-div h3 {
+  font-weight: bold;
+}
+
+
+/* IDs */
+#movie-type {
+  text-align: center;
+  font-size: 3em;
+}
+
+#show-type {
+  text-align: center;
+  font-size: 3em;
 }
