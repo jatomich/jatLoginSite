@@ -9,6 +9,7 @@ function NetflixData() {
 
   useEffect(() => {
     const fetchMovies = async () => {
+      console.log("Getting movies.  Here is axios url: " + axios.defaults.baseURL);
       const response = await axios.get(axios.defaults.baseURL + '/netflix_movies');
       setMovies(response.data.movies);
     };
