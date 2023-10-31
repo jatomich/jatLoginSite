@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:5000'
+axios.defaults.baseURL = 'http://172.20.140.68:5000'
 
 function NetflixData() {
   const [movies, setMovies] = useState([]);
@@ -9,12 +9,12 @@ function NetflixData() {
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const response = await axios.get('/netflix_movies');
+      const response = await axios.get(axios.defaults.baseURL + '/netflix_movies');
       setMovies(response.data.movies);
     };
 
     const fetchShows = async () => {
-      const response = await axios.get('/netflix_shows');
+      const response = await axios.get(axios.defaults.baseURL + '/netflix_shows');
       setShows(response.data.shows);
     };
 

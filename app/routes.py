@@ -4,7 +4,7 @@ from flask import (render_template,
                    jsonify,
                    url_for,
                    current_app as app)
-from app import db
+from app import db, api
 from .models import User, Movie, TVShow
 import pandas as pd
 import json
@@ -52,17 +52,29 @@ def netflixdf():
 #     return render_template("netflix_shows.html", columns=columns, shows=shows)
 
 
-
+# @app.route("/netflix_movies")
 class NetflixMovies(Resource):
     def get(self):
-        columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
-        movies = {c: m.c for c in columns for m in Movie.query}
-        return {'movies': movies}
+        self.columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
+        self.movies = [{c: m.c for c in self.columns} for m in Movie.query]
+        # return {'movies': self.movies}
+        return self.response
+    
+    @classmethod
+    def make_api(cls, response):
+        cls.response = response
+        return cls
     
 
-
+# @app.route("/netflix_shows")
 class NetflixShows(Resource):
     def get(self):
-        columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
-        shows = {c: s.c for c in columns for s in TVShow.query}
-        return {'shows': shows}
+        self.columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
+        self.shows = [{c: s.c for c in self.columns} for s in TVShow.query]
+        # return {'shows': self.shows}
+        return self.response
+    
+    @classmethod
+    def make_api(cls, response):
+        cls.response = response
+        return cls
