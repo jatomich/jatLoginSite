@@ -4,10 +4,11 @@ from flask import (render_template,
                    jsonify,
                    url_for,
                    current_app as app)
-from app import db
+from app import db, api
 from .models import User, Movie, TVShow
 import pandas as pd
 import json
+from flask_restful import Resource
 
 
 @app.route('/')
@@ -35,17 +36,45 @@ def netflixdf():
     return redirect("index")
 
 
-@app.route("/netflix_movies")
-def netflix_movies():
-    columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
-    movies = [[m.title, m.director, m.cast, m.description] for m in Movie.query]
+# @app.route("/netflix_movies")
+# def netflix_movies():
+#     columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
+#     movies = [[m.title, m.director, m.cast, m.description] for m in Movie.query]
 
-    return render_template("netflix_movies.html", columns=columns, movies=movies)
+#     return render_template("netflix_movies.html", columns=columns, movies=movies)
 
 
-@app.route("/netflix_shows")
-def netflix_shows():
-    columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
-    shows = [[s.title, s.director, s.cast, s.description] for s in TVShow.query]
+# @app.route("/netflix_shows")
+# def netflix_shows():
+#     columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
+#     shows = [[s.title, s.director, s.cast, s.description] for s in TVShow.query]
 
-    return render_template("netflix_shows.html", columns=columns, shows=shows)
+#     return render_template("netflix_shows.html", columns=columns, shows=shows)
+
+
+# @app.route("/netflix_movies")
+class NetflixMovies(Resource):
+    def get(self):
+        self.columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
+        self.movies = [{c: m.c for c in self.columns} for m in Movie.query]
+        # return {'movies': self.movies}
+        return self.response
+    
+    @classmethod
+    def make_api(cls, response):
+        cls.response = response
+        return cls
+    
+
+# @app.route("/netflix_shows")
+class NetflixShows(Resource):
+    def get(self):
+        self.columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
+        self.shows = [{c: s.c for c in self.columns} for s in TVShow.query]
+        # return {'shows': self.shows}
+        return self.response
+    
+    @classmethod
+    def make_api(cls, response):
+        cls.response = response
+        return cls

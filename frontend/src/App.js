@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import NetflixData from './DataComponent';
 
 function App() {
   return (
@@ -18,6 +19,18 @@ function App() {
           Learn React
         </a>
       </header>
+      <div className={ `container-fluid` }>
+        <NetflixData />
+      </div>
+      <div className={`container-fluid`}>
+        <select onChange={(e) => setSelectedDataset(e.target.value)}>
+          <option value="Netflix Movies">Netflix</option>
+          <option value="Netflix Shows">Jobs</option>
+          <option value="IMDb">IMDb</option>
+        </select>
+        <button onClick={fetchData}>Fetch Data</button>
+        {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+      </div>
     </div>
   );
 }
