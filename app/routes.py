@@ -4,7 +4,7 @@ from flask import (render_template,
                    jsonify,
                    url_for,
                    current_app as app)
-from app import db, api
+from app import db #, api
 from .models import User, Movie, TVShow
 import pandas as pd
 import json
@@ -21,12 +21,14 @@ def index():
 def netflixdf():
     netflix_df = pd.read_csv(url_for('static', filename='input/csv/netflix_titles.csv'))
     print(netflix_df)
-    for tup in netflix_df.itertuples():
-        if tup.type == "Movie" and tup.show_id not in [movie.show_id for movie in Movie.query]:
+    movies_df = netflix_df.loc[netflix_df['type'] == 'Movie', :].sort_values('title').reset_index(drop=True).copy()
+    shows_df = netflix_df.loc[netflix_df['type'] == 'TV Show', :].sort_values('title').reset_index(drop=True).copy()
+    for tup in movies_df.itertuples():
+        if tup.show_id not in [movie.show_id for movie in Movie.query]:
             db.session.add(Movie(show_id=tup.show_id, title=tup.title, director=tup.director, cast=tup.cast, country=tup.country, date_added=tup.date_added, release_year=tup.release_year, rating=tup.rating, duration=tup.duration, listed_in=tup.listed_in, description=tup.description))
             db.session.commit()
-            continue
-        if tup.type == "TV Show" and tup.show_id not in [tvshow.show_id for tvshow in TVShow.query]:
+    for tup in shows_df.itertuples():
+        if tup.show_id not in [tvshow.show_id for tvshow in TVShow.query]:
             db.session.add(TVShow(show_id=tup.show_id, title=tup.title, director=tup.director, cast=tup.cast, country=tup.country, date_added=tup.date_added, release_year=tup.release_year, rating=tup.rating, duration=tup.duration, listed_in=tup.listed_in, description=tup.description))
             db.session.commit()
     # netflix_df.to_json('app/static/netflix.json')
@@ -51,30 +53,28 @@ def netflixdf():
 
 #     return render_template("netflix_shows.html", columns=columns, shows=shows)
 
+# class NetflixMovies(Resource):
+@app.route("/netflix_movies")
+def netflix_movies():
+    columns = ["title", "director", "cast", "description", "show_id"]
+    movies = [{k: v for k, v in m.__dict__.items() if k in columns} for m in Movie.query]
+    return {'movies': movies}
 
-# @app.route("/netflix_movies")
-class NetflixMovies(Resource):
-    def get(self):
-        self.columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
-        self.movies = [{c: m.c for c in self.columns} for m in Movie.query]
-        # return {'movies': self.movies}
-        return self.response
     
-    @classmethod
-    def make_api(cls, response):
-        cls.response = response
-        return cls
+    # @classmethod
+    # def make_api(cls, response):
+    #     cls.response = response
+    #     return cls
     
+# class NetflixShows(Resource):
+@app.route("/netflix_shows")
+def netflix_shows():
+    columns = ["title", "director", "cast", "description", "show_id"]
+    shows = [{k: v for k, v in s.__dict__.items() if k in columns} for s in TVShow.query]
+    return {'shows': shows}
 
-# @app.route("/netflix_shows")
-class NetflixShows(Resource):
-    def get(self):
-        self.columns = ['TITLE', 'DIRECTOR', 'CAST', 'DESCRIPTION']
-        self.shows = [{c: s.c for c in self.columns} for s in TVShow.query]
-        # return {'shows': self.shows}
-        return self.response
     
-    @classmethod
-    def make_api(cls, response):
-        cls.response = response
-        return cls
+    # @classmethod
+    # def make_api(cls, response):
+    #     cls.response = response
+    #     return cls
