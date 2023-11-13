@@ -1,8 +1,6 @@
 import os
-from pathlib import Path
 
 basedir = os.path.abspath(os.path.dirname(os.environ.get('LOC_ANCHOR', '__file__')))
-instance_path = basedir + '/app'
 
 
 class Config():
