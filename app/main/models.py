@@ -75,9 +75,9 @@ class NetflixMedia(db.Model):
         try:
             target_table_format = format.lower()
             if target_table_format == "movie":
-                new_content = Movie(**details)
+                new_content = NetflixMedia(**details)
             elif target_table_format == "tv show":
-                new_content = TVShow(**details)
+                new_content = NetflixMedia(**details)
         except ValueError as error:
             print(error)
             return
