@@ -1,13 +1,7 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-from app import create_app
-from app.models import (db,
-                        User,
-                        Movie,
-                        TVShow,
-                        NetflixMedia)
-
+from app import create_app, db, User, Movie, TVShow, NetflixMedia
 
 app = create_app()
 
@@ -19,3 +13,7 @@ def make_shell_context():
             'TVShow': TVShow,
             'User': User,
             'NetflixMedia': NetflixMedia}
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
