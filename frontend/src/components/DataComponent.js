@@ -30,6 +30,8 @@ function NetflixData() {
       {movies.map((movie, index) => (
         <div className='netflix-div' key={index}>
           <h2>{movie.title}</h2>
+          <p><b>cast:</b> {movie.cast}</p>
+          <p><b>date added:</b> {movie.date_added}</p>
           <p><b>director:</b> {movie.director}</p>
           <p><b>cast:</b> {movie.cast}</p>
           <p><b>description:</b> {movie.description}</p>
