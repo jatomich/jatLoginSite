@@ -100,7 +100,7 @@ function NetflixData() {
 
   const fetchMovies = async () => {
     try {
-      const response = await instance.get(`/netflix_movies`, {});
+      const response = await instance.get(`/api/netflix_movies`, {});
       setMovies(response.data.movies);
     } catch (error) {
       console.error("Error fetching movies: ", error);
@@ -109,7 +109,7 @@ function NetflixData() {
 
   const fetchShows = async () => {
     try {
-      const response = await instance.get(`/netflix_shows`, {});
+      const response = await instance.get(`/api/netflix_shows`, {});
       setShows(response.data.shows);
     } catch (error) {
       console.error("Error fetching shows: ", error);
